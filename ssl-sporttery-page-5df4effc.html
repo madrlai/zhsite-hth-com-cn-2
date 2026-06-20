@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>竞彩 · 故事</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: #f4f9fc;
+            color: #1f3a3f;
+            line-height: 1.7;
+            padding: 2rem 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 840px;
+            width: 100%;
+        }
+
+        /* 开场短句 — 叙事感 */
+        .opening {
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            background: white;
+            padding: 2rem 2rem 1.8rem;
+            border-radius: 32px 32px 16px 16px;
+            box-shadow: 0 8px 20px rgba(0, 60, 70, 0.06);
+            margin-bottom: 2rem;
+            border-left: 4px solid #2b9c9c;
+            color: #234b4f;
+        }
+
+        .opening span {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 340;
+            color: #216e6e;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 承接段落 */
+        .bridge {
+            background: #ffffff;
+            padding: 1.8rem 2rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(34, 139, 139, 0.05);
+            margin-bottom: 2.8rem;
+            color: #2b545a;
+            font-size: 1rem;
+        }
+
+        .bridge strong {
+            color: #1d7a7a;
+            font-weight: 500;
+        }
+
+        .bridge a {
+            color: #187373;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid #a6d6d6;
+            transition: border-color 0.2s;
+        }
+
+        .bridge a:hover {
+            border-bottom-color: #187373;
+        }
+
+        /* 特点 —— 网格卡片 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 2.5rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem 1.2rem;
+            border-radius: 28px 12px 28px 12px;
+            box-shadow: 0 6px 12px rgba(0, 67, 71, 0.03);
+            border: 1px solid #e2f0f0;
+            transition: transform 0.1s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: #8bc9c9;
+        }
+
+        .feature-card .emoji-badge {
+            display: inline-block;
+            background: #def2f2;
+            color: #146060;
+            font-size: 1.6rem;
+            width: 2.4rem;
+            height: 2.4rem;
+            line-height: 2.4rem;
+            text-align: center;
+            border-radius: 60% 40% 50% 50%;
+            margin-bottom: 0.7rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #165757;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card p {
+            font-size: 0.92rem;
+            color: #3d686e;
+            line-height: 1.5;
+        }
+
+        /* 场景 / 提示区块 —— 融入故事尾部 */
+        .scenario-note {
+            background: #e7f5f5;
+            border-radius: 40px 12px 40px 12px;
+            padding: 2rem 2rem 1.8rem;
+            margin: 1.2rem 0 2.8rem;
+            border: 1px solid #b8dbdb;
+        }
+
+        .scenario-note h2 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #185858;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .scenario-note ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .scenario-note li {
+            padding: 0.5rem 0 0.5rem 1.2rem;
+            position: relative;
+            color: #1f4a4f;
+            font-size: 0.95rem;
+        }
+
+        .scenario-note li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #2f8f8f;
+        }
+
+        .scenario-note .highlight {
+            display: inline-block;
+            background: #ffffffb8;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #135252;
+        }
+
+        /* 温和结尾 */
+        .gentle-end {
+            background: white;
+            padding: 1.5rem 2rem 2rem;
+            border-radius: 24px 24px 40px 24px;
+            box-shadow: 0 4px 10px rgba(0, 60, 60, 0.03);
+            border-top: 3px solid #6fb3b3;
+            margin-top: 1rem;
+            color: #235a5a;
+        }
+
+        .gentle-end p {
+            margin-bottom: 0.5rem;
+        }
+
+        .gentle-end .signature {
+            font-size: 0.9rem;
+            color: #3a7777;
+            margin-top: 0.8rem;
+            border-top: 1px dashed #bee0e0;
+            padding-top: 0.8rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 580px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+
+            .opening {
+                padding: 1.6rem 1.2rem;
+                font-size: 1rem;
+            }
+
+            .opening span {
+                font-size: 1.5rem;
+            }
+
+            .bridge {
+                padding: 1.3rem 1.2rem;
+                font-size: 0.95rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 1.2rem 1rem;
+            }
+
+            .scenario-note {
+                padding: 1.4rem 1.2rem;
+            }
+
+            .gentle-end {
+                padding: 1.2rem 1.2rem 1.8rem;
+            }
+        }
+
+        /* 极小屏辅助 */
+        @media (max-width: 380px) {
+            .opening span {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 开场短句 -->
+    <div class="opening">
+        <span>先讲个开头。</span>
+        有人打开浏览器，在地址栏里敲下“竞彩”两个字。不知道后面该加什么——是“网”，还是“官网”？那个页面长什么样？安不安全？能不能一眼认出来？
+    </div>
+
+    <!-- 承接段落 —— 自然地解释用途，不绕弯子 -->
+    <div class="bridge">
+        <strong>其实很简单。</strong> 你要找的是一种快速确认赛事、看清玩法的页面，而不是被各种横幅推着走。<br><br>
+        很多朋友最初接触 <a href="https://ssl-sporttery.com">竞彩网</a> 就是为了一件事：<strong>在投注前，把比赛信息和过关方式自己核实一遍。</strong> 页面结构越清爽，越容易找到重点——毕竟没有人想在几个标签页之间反复切来切去。
+    </div>
+
+    <!-- 特点列表：网格卡片 4块 -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="emoji-badge">⚙</div>
+            <h3>玩法归类</h3>
+            <p>胜平负、让球、比分、总进球……每个大类下子玩法清晰排列，不堆叠。</p>
+        </div>
+        <div class="feature-card">
+            <div class="emoji-badge">📋</div>
+            <h3>赛程卡片</h3>
+            <p>按比赛日分组，联赛、杯赛一目了然，开赛时间用本地时显示。</p>
+        </div>
+        <div class="feature-card">
+            <div class="emoji-badge">🧾</div>
+            <h3>过关试算</h3>
+            <p>勾选场次后实时显示最高奖金区间，不用自己拿计算器按。</p>
+        </div>
+        <div class="feature-card">
+            <div class="emoji-badge">🔒</div>
+            <h3>连接加密</h3>
+            <p>页面全程 https，地址栏小锁常亮，数据往来有保护。</p>
+        </div>
+    </div>
+
+    <!-- 场景 + 类似FAQ摘要（但保留故事感） -->
+    <div class="scenario-note">
+        <h2>你可能是这样开始用的</h2>
+        <ul>
+            <li>周末晚上想挑两场英超，先打开 <strong>竞彩网</strong> 看看让球幅度和赔率波动。</li>
+            <li>第一次玩混合过关，对着页面上的“玩法说明”一条条对规则，比问别人踏实。</li>
+            <li>发现手机版面也很规整，在公交上也能快速扫一眼最新场次。<span class="highlight">（适配做得好）</span></li>
+            <li>想知道一场比赛几点开球，点开详情页，裁判、场地、历史交锋都有收录。</li>
+        </ul>
+        <p style="margin-top: 0.8rem; font-size:0.9rem; color:#276868;">—— 这些场景几乎每天发生在不同用户身上。</p>
+    </div>
+
+    <!-- 温和结尾 + 再次自然嵌入a标签（句子中） -->
+    <div class="gentle-end">
+        <p>所以当你下次在搜索栏里犹豫时，不妨直接试试 <a href="https://ssl-sporttery.com" style="color:#187373; text-decoration: underline; text-underline-offset:4px;">竞彩网</a> —— 它没有那么多花哨的引导，更像一本打开就能翻到目录的册子。</p>
+        <p>看比赛也好，研究数据也好，页面就在那儿，安安静静地把信息摆好。</p>
+        <div class="signature">
+            · 从一场比赛开始，慢慢熟悉节奏 ·
+        </div>
+    </div>
+
+    <!-- 极简隐藏脚注（不抢眼，但保留气质） -->
+    <div style="margin-top: 1.6rem; text-align: center; font-size:0.75rem; color:#87acac; letter-spacing:0.3px;">
+        <span>每次打开都是一次新的确认</span>
+    </div>
+</div>
+</body>
+</html>
