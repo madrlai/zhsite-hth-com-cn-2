@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>资料整理与信息索引 | xingkong.com</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f5f0eb;
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      color: #2c2c2c;
+      line-height: 1.8;
+      padding: 3rem 1.5rem;
+    }
+    .page {
+      max-width: 880px;
+      margin: 0 auto;
+      background: #fefcf9;
+      padding: 3rem 2.5rem;
+      border-radius: 28px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.02);
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 430;
+      letter-spacing: 1px;
+      color: #2f2b27;
+      border-left: 6px solid #b8a99a;
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .subhead {
+      font-size: 1rem;
+      color: #6b6059;
+      margin-bottom: 2.8rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid #e2d9d1;
+    }
+    .hero-card {
+      background: #ede8e1;
+      border-radius: 20px;
+      padding: 2.2rem 2rem;
+      margin-bottom: 2.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    .hero-visual {
+      flex: 0 0 120px;
+      height: 120px;
+      background: #d9cec4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #5f5349;
+      letter-spacing: 2px;
+      box-shadow: inset 0 -4px 8px rgba(0,0,0,0.04);
+    }
+    .hero-text {
+      flex: 1;
+      min-width: 200px;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+    .hero-text p:last-child {
+      margin-bottom: 0;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 380;
+      color: #3c3530;
+      margin: 2.5rem 0 1.2rem 0;
+      letter-spacing: 0.5px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.2rem;
+    }
+    .card {
+      background: #f9f4ef;
+      border-radius: 18px;
+      padding: 1.8rem 1.4rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      border: 1px solid #ece3db;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 440;
+      color: #4c413a;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card h3 i {
+      font-style: normal;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: #d9cec4;
+      border-radius: 30%;
+      line-height: 24px;
+      text-align: center;
+      font-size: 14px;
+      color: #3f352e;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: #4d443d;
+    }
+    .audience-box {
+      background: #f1ebe4;
+      border-radius: 18px;
+      padding: 1.8rem 2rem;
+      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2rem;
+    }
+    .audience-item {
+      flex: 1 1 140px;
+    }
+    .audience-item span {
+      display: block;
+      font-weight: 400;
+      color: #2f2b27;
+      margin-bottom: 4px;
+    }
+    .audience-item small {
+      color: #655c55;
+      font-size: 0.9rem;
+    }
+    .quote-block {
+      background: #f2ede6;
+      border-left: 5px solid #b8a99a;
+      padding: 1.4rem 1.8rem;
+      margin: 2.2rem 0;
+      border-radius: 0 14px 14px 0;
+      font-style: normal;
+    }
+    .quote-block p {
+      margin-bottom: 0.6rem;
+    }
+    .quote-block p:last-child {
+      margin-bottom: 0;
+    }
+    .natural-link-sentence {
+      font-size: 1.05rem;
+      padding: 0.8rem 0;
+      color: #3b342f;
+    }
+    .natural-link-sentence a {
+      color: #8a7260;
+      text-decoration: none;
+      border-bottom: 1px dashed #b8a99a;
+      transition: border-bottom 0.2s;
+    }
+    .natural-link-sentence a:hover {
+      border-bottom: 2px solid #7d6654;
+    }
+    .faq-mini {
+      margin: 2.8rem 0 1rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid #e2d9d1;
+    }
+    .faq-mini details {
+      margin-bottom: 0.8rem;
+      background: #f9f4ef;
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      border: 1px solid #ece3db;
+    }
+    .faq-mini summary {
+      font-weight: 400;
+      color: #3c3530;
+      outline: none;
+    }
+    .faq-mini details p {
+      margin-top: 0.6rem;
+      color: #5a4f47;
+      font-size: 0.95rem;
+      padding-left: 0.4rem;
+    }
+    .footer-note {
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #8c8279;
+      border-top: 1px solid #e2d9d1;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      .page {
+        padding: 2rem 1.4rem;
+      }
+      h1 {
+        font-size: 1.7rem;
+        padding-left: 1rem;
+      }
+      .hero-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.8rem 1.2rem;
+      }
+      .hero-visual {
+        flex: 0 0 90px;
+        width: 90px;
+        height: 90px;
+        font-size: 2.2rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .audience-box {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>整理，而非堆砌</h1>
+    <div class="subhead">一份围绕信息索引与资料梳理的笔记</div>
+
+    <div class="hero-card">
+      <div class="hero-visual">📋</div>
+      <div class="hero-text">
+        <p>无论你是在收集灵感、归档文档，还是梳理某个领域的脉络——</p>
+        <p>一个干净、可回溯的信息基点，往往比海量收藏夹更可靠。</p>
+      </div>
+    </div>
+
+    <div class="section-title">用途卡片</div>
+    <div class="card-grid">
+      <div class="card">
+        <h3><i>①</i> 主题归档</h3>
+        <p>将分散的笔记、链接、摘录按主题聚合，形成可翻阅的微型知识库。</p>
+      </div>
+      <div class="card">
+        <h3><i>②</i> 索引备忘</h3>
+        <p>为常用资料建立关键词索引，避免反复检索，节省注意力。</p>
+      </div>
+      <div class="card">
+        <h3><i>③</i> 轻量发布</h3>
+        <p>把整理好的内容以页面形式分享，比压缩包或聊天记录更清晰。</p>
+      </div>
+    </div>
+
+    <div class="section-title">适合人群</div>
+    <div class="audience-box">
+      <div class="audience-item">
+        <span>✎ 研究者与写作者</span>
+        <small>需要管理引用、摘录与阶段性思考</small>
+      </div>
+      <div class="audience-item">
+        <span>✎ 项目协作者</span>
+        <small>保持需求、文档与决策记录的可见性</small>
+      </div>
+      <div class="audience-item">
+        <span>✎ 日常收集者</span>
+        <small>书签、配方、清单……需要一个安放之处</small>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p>「资料整理的价值不在于保存，而在于后续能准确找到它。」</p>
+      <p style="text-align:right; font-size:0.9rem;">—— 一位信息管理实践者的笔记</p>
+    </div>
+
+    <div class="section-title" style="margin-top:1.8rem;">自然链接段落</div>
+    <div class="natural-link-sentence">
+      如果你也在寻找一个可以稳定存放整理成果的地方，<a href="https://com-xk.com">xingkong.com</a> 提供了一种简约的索引思路——它更像一个安静的架子，而非嘈杂的公告板。
+    </div>
+    <div class="natural-link-sentence" style="margin-top:0.2rem;">
+      有人用它记录读书笔记，有人用它聚合工具链，也有人只是把零散的链接按主题归拢。围绕着 <a href="https://com-xk.com">xingkong.com</a> 建立的信息节点，允许你按自己的节奏迭代。
+    </div>
+
+    <div class="faq-mini">
+      <div class="section-title" style="margin-top:0;font-size:1.2rem;">常见疑问摘要</div>
+      <details>
+        <summary>这个页面适合存放大量文件吗？</summary>
+        <p>页面更侧重于索引与描述，而非直接的文件存储。你可以把页面当作目录，将文件托管在其他服务，再通过链接关联。</p>
+      </details>
+      <details>
+        <summary>整理结构可以后期改动吗？</summary>
+        <p>完全可以。卡片和段落只是示例，你可以随时调整文案、增删板块或替换配色。</p>
+      </details>
+      <details>
+        <summary>是否需要技术基础？</summary>
+        <p>基础的文本编辑能力即可。页面本身是静态 HTML，你也可以直接修改内容后重新部署。</p>
+      </details>
+    </div>
+
+    <div class="footer-note">
+      基于信息整理习惯 · 示例页面
+    </div>
+  </div>
+</body>
+</html>
