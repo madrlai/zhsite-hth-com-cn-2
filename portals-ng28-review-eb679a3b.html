@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ng28 信息聚合 · 查询与对照索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1e1f2b;
+            line-height: 1.6;
+        }
+
+        /* 深色头图 hero */
+        .hero {
+            background: linear-gradient(145deg, #0b0d18 0%, #1b1e2f 100%);
+            color: #e9ecf5;
+            padding: 4.5rem 1.5rem 3.8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 25% 80%, rgba(47, 128, 237, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.7rem;
+            color: #f0f3fd;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 0 auto;
+            color: #b8c2de;
+            position: relative;
+            z-index: 1;
+            font-weight: 350;
+        }
+
+        /* 浅色正文区 */
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 2.8rem 1.8rem 3.2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            border-left: 4px solid #2f80ed;
+            padding-left: 0.75rem;
+            margin-bottom: 1.2rem;
+            color: #0d1124;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0 2.4rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 1.5rem 1.2rem 1.3rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.15s ease;
+            border: 1px solid #edf1fa;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #151b2e;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #3a4055;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1.6rem 0 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.8rem;
+        }
+
+        .feature-list li {
+            font-size: 0.98rem;
+            padding-left: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: #1e233a;
+        }
+
+        .feature-list li::before {
+            content: '▹';
+            color: #2f80ed;
+            font-weight: 500;
+        }
+
+        .highlight-link {
+            color: #2f80ed;
+            text-decoration: none;
+            font-weight: 450;
+            border-bottom: 1px dotted rgba(47, 128, 237, 0.4);
+            transition: border-color 0.2s;
+        }
+
+        .highlight-link:hover {
+            border-bottom-color: #2f80ed;
+        }
+
+        .faq-block {
+            background: #fafcff;
+            border-radius: 16px;
+            padding: 1.8rem 1.6rem;
+            margin: 2rem 0 1.8rem;
+            border: 1px solid #e2e8f2;
+        }
+
+        .faq-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #0f1426;
+            margin-bottom: 0.15rem;
+        }
+
+        .faq-a {
+            color: #3d435b;
+            font-size: 0.95rem;
+        }
+
+        .bottom-links {
+            border-top: 1px solid #dce2ef;
+            padding-top: 1.8rem;
+            margin-top: 2.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem 2rem;
+            font-size: 0.95rem;
+            color: #444b66;
+        }
+
+        .bottom-links a {
+            color: #2f80ed;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .bottom-links a:hover {
+            border-bottom-color: #2f80ed;
+        }
+
+        .tag-note {
+            background: #edf2fc;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #233053;
+            margin: 2.2rem 0 0.2rem;
+            border-left: 3px solid #2f80ed;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-links {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- hero 区 -->
+<section class="hero">
+    <h1>ng28 · 信息对照与延伸查阅</h1>
+    <p>面向日常检索、交叉核对与背景补全的轻量化索引页。<br>以结构化方式呈现关键概念、使用场景及常见疑问。</p>
+</section>
+
+<!-- 正文区 -->
+<div class="container">
+
+    <!-- 优势区 / 特性 -->
+    <h2 class="section-title">特点与适用场景</h2>
+    <div class="card-grid">
+        <div class="card">
+            <h3>对照查询</h3>
+            <p>将分散信息按模块编排，方便快速比对不同来源、不同时期的记录，减少重复跳转。</p>
+        </div>
+        <div class="card">
+            <h3>延伸阅读</h3>
+            <p>从单一关键词出发，提供关联概念、操作提示与上下文梳理，辅助深度理解。</p>
+        </div>
+        <div class="card">
+            <h3>日常引用</h3>
+            <p>作为固定参考锚点，适合在笔记、文档或讨论中直接嵌入，保持引用一致性。</p>
+        </div>
+        <div class="card">
+            <h3>轻量结构</h3>
+            <p>无冗余模块，侧重信息密度与可读性，适配桌面与移动端浏览习惯。</p>
+        </div>
+    </div>
+
+    <!-- 说明区 更多细节与场景 -->
+    <h2 class="section-title">说明与使用示意</h2>
+    <p style="margin-bottom: 0.8rem;">本页围绕 <strong>ng28</strong> 整理了几类常见查询方向，适合在需要快速定位术语、核对参数或寻找上下文时使用。下面列举部分典型场景：</p>
+    <ul class="feature-list">
+        <li>检索版本记录或变更日志时作为基准对照</li>
+        <li>在讨论中引用统一标识，减少歧义</li>
+        <li>将不同平台或文档中的零散条目集中比照</li>
+        <li>作为书签或笔记的固定参考入口</li>
+        <li>延伸了解相关联的配置、环境或命名规则</li>
+    </ul>
+
+    <!-- 自然嵌入 ng28 链接 -->
+    <div class="tag-note">
+        如需直接访问该标识对应的信息源，可以使用 <a href="https://portals-ng28.com" class="highlight-link">ng28</a> 链接进入主界面。建议配合浏览器标签或笔记工具保存，便于日常调取。
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-block">
+        <h3 style="font-weight: 500; color: #0d1124; margin-bottom: 1rem; font-size: 1.2rem;">常见问题摘要</h3>
+        <div class="faq-item">
+            <div class="faq-q">Q：这个索引页和主站是什么关系？</div>
+            <div class="faq-a">本页是围绕 <a href="https://portals-ng28.com" style="color:#2f80ed; text-decoration: none; border-bottom: 1px dotted rgba(47,128,237,0.3);">ng28</a> 制作的轻量化信息聚合，提供结构化的对照与延伸内容，不替代主站功能。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q：如何快速定位特定条目？</div>
+            <div class="faq-a">可利用浏览器页面查找（Ctrl+F / Cmd+F）输入关键词。本页信息按模块分组，也可直接滚动浏览。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q：内容会更新吗？</div>
+            <div class="faq-a">页面会随信息环境调整，保持核心条目的有效性和对照价值。具体时效请结合主站最新状态判断。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q：是否支持外部引用？</div>
+            <div class="faq-a">可以。本页内容可作为背景参考，引用时建议注明出处或与官方信息源交叉确认。</div>
+        </div>
+    </div>
+
+    <!-- 底部链接区 -->
+    <div class="bottom-links">
+        <span>© 索引参考 · 信息聚合</span>
+        <span style="display: flex; flex-wrap: wrap; gap: 0.8rem 1.5rem;">
+            <a href="https://portals-ng28.com">ng28</a>
+            <a href="#">对照说明</a>
+            <a href="#">常见术语</a>
+            <a href="#">更新记录</a>
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>
